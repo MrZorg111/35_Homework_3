@@ -3,7 +3,7 @@
 
 auto recursiveGetFileNamesByExtension = [](std::filesystem::path _path, const std::string _extension){
     for(auto& p: std::filesystem::recursive_directory_iterator(_path)) {
-        if(is_regular_file(p) && p.path().extension().compare(_extension)) {
+        if(is_regular_file(p.path()) && !p.path().extension().compare(_extension)) {
             std::cout << p.path().filename() << std::endl;
         }
     }
@@ -12,9 +12,9 @@ auto recursiveGetFileNamesByExtension = [](std::filesystem::path _path, const st
 
 
 int main() {
-    auto path("P:\\SkillBox"), extansion(".txt");
+    const auto path("P:\\SkillBox"), extension = ".txt";
 
-    recursiveGetFileNamesByExtension(path, extansion);
+    recursiveGetFileNamesByExtension(path, extension);
 
 
 return 0;
